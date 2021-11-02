@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -5,6 +6,9 @@ const exphbs = require('express-handlebars')
 const path = require('path')
 
 const PORT = process.env.PORT || 3001
+
+// db
+require('./db')
 
 // Routes imports
 const userRoutes = require('./routes/user.routes')
