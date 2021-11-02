@@ -6,6 +6,10 @@ const path = require('path')
 
 const PORT = process.env.PORT || 3001
 
+// Routes imports
+const userRoutes = require('./routes/user.routes')
+const contactRoutes = require('./routes/contact.routes')
+
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -19,8 +23,15 @@ app.engine('hbs', exphbs({
 }))
 app.set('view engine', 'hbs')
 
+// Routes
+
 app.get('/', (req, res) => {
 	res.render('index')
 })
+
+app.use(userRoutes)
+app.use(contactRoutes)
+
+app.use((req, res) => res.render('404'))
 
 app.listen(PORT, () => console.log(`Server on PORT ${PORT}`))
