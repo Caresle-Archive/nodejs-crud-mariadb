@@ -11,9 +11,14 @@ async function connection() {
 	try {
 		await sequelize.authenticate()
 		console.log('connection has been established successfully')
-		const newUser = User.build({username: 'user sequelize2', password: '1234'})
-		await newUser.save()
-		console.log('user saved')
+		const users = await User.findAll({
+			where: {
+				username: 'user sequelize2'
+			}
+		})
+		for (const user of users) {
+			console.log(user.toJSON())
+		}
 	} catch (error) {
 		console.log(error)
 	}
