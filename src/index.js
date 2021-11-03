@@ -16,7 +16,7 @@ const contactRoutes = require('./routes/contact.routes')
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
-
+app.use(express.json())
 // View engine
 app.set('views', path.join(__dirname, 'views'))
 app.engine('hbs', exphbs({
@@ -38,4 +38,6 @@ app.use(contactRoutes)
 
 app.use((req, res) => res.render('404'))
 
-app.listen(PORT, () => console.log(`Server on PORT ${PORT}`))
+const server = app.listen(PORT, () => console.log(`Server on PORT ${PORT}`))
+
+module.exports = { app, server }

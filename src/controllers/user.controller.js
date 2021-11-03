@@ -25,7 +25,7 @@ const signinForm = (req, res) => {
  * Get all the users in the table users in the db
  * @param {*} req 
  * @param {*} res
- * @returns {Array} an array of json data with all the users
+ * @returns {Array} an array of json, with the data of all the users
  */
 const getAllUsers = async (req, res) => {
 	const users = await User.findAll()
@@ -56,10 +56,14 @@ const getUserById = async (req, res) => {
  * If the passwords don't match returns a 400
  * @param {*} req 
  * @param {*} res 
- * @returns {object} A json with the user data that was create
+ * @returns {(object | res)} A json with the user data that was create
+ * if an invalid request is send, will return a 400 error
  */
 const createUser = async (req, res) => {
 	const { username, password, password2} = req.body
+	if (!username || !password || !password2) {
+		return res.status(400).end()
+	}
 	
 	if (password !== password2) {
 		return res.status(400).end()

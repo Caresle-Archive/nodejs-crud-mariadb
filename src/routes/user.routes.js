@@ -3,7 +3,8 @@ const {
 	signupForm,
 	signinForm,
 	getAllUsers,
-	getUserById
+	getUserById,
+	createUser
 } = require('../controllers/user.controller')
 
 // Signup routes
@@ -15,5 +16,7 @@ routes.get('/signin', signinForm)
 // User routes
 routes.get('/users', getAllUsers)
 routes.get('/users/:id', getUserById)
+
+routes.post('/users', createUser)
 
 module.exports = routes
