@@ -38,7 +38,9 @@ const signinUser = async (req, res) => {
 	if (data.password !== password) {
 		return res.status(400).redirect('/signin')
 	}
-	req.id = data.id
+	res.cookie('idUsername', data.id, {
+		secure: true
+	})
 	res.status(200).redirect('/contacts')
 }
 

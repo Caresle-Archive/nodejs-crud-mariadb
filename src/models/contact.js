@@ -1,39 +1,38 @@
-const { Sequelize, DataTypes, Model } = require('sequelize')
+const {Sequelize, DataTypes, Model} = require('sequelize')
 const { 
 	username, database, password 
 } = require('../helpers/dbCredentials')
+
 const sequelize = new Sequelize(database, username, password, {
 	dialect: 'mariadb'
 })
 
-class User extends Model {}
+class Contact extends Model {}
 
-User.init({
+Contact.init({
 	id: {
-		type: DataTypes.INTEGER,
+		type: DataTypes.STRING,
 		allowNull: false,
 		autoIncrement: true,
 		primaryKey: true
 	},
-	username: {
+	contact_name: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	password: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
-	email: {
+	phone_number: {
 		type: DataTypes.STRING,
 		allowNull: false
 	}
-}, {
+},
+{
 	sequelize,
-	modelName: 'User',
-	tableName: 'users',
+	modelName: 'Contact',
+	tableName: 'contacts',
 	timestamps: false
 })
 
-const startUser = async () => await User.sync({ alter: true })
-startUser()
-module.exports = User
+const startContact = async () => await Contact.sync({alter: true})
+startContact()
+
+module.exports = Contact
