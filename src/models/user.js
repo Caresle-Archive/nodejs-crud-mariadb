@@ -23,6 +23,10 @@ User.init({
 	password: {
 		type: DataTypes.STRING,
 		allowNull: false
+	},
+	email: {
+		type: DataTypes.STRING,
+		allowNull: false
 	}
 }, {
 	sequelize,

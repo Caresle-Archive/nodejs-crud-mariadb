@@ -1,4 +1,5 @@
 const getContacts = (req, res) => {
+	console.log(req.id)
 	res.render('contacts/')
 }
 

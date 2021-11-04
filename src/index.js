@@ -17,6 +17,8 @@ const contactRoutes = require('./routes/contact.routes')
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
 // View engine
 app.set('views', path.join(__dirname, 'views'))
 app.engine('hbs', exphbs({

@@ -10,6 +10,8 @@ const signupForm = (req, res) => {
 	res.render('users/signup')
 }
 
+// signin Controllers
+
 /**
  * Renders the signin form
  * @param {*} req 
@@ -17,6 +19,27 @@ const signupForm = (req, res) => {
  */
 const signinForm = (req, res) => {
 	res.render('users/signin')
+}
+
+const signinUser = async (req, res) => {
+	const { username, password } = req.body
+	if (!username || !password) {
+		return res.status(400).end()
+	}
+
+	const response = await User.findOne({where: {username}})
+
+	if (!response) {
+		return res.status(400).end()
+	}
+
+	const data = response.toJSON()
+
+	if (data.password !== password) {
+		return res.status(400).redirect('/signin')
+	}
+	req.id = data.id
+	res.status(200).redirect('/contacts')
 }
 
 // User controllers
@@ -60,8 +83,9 @@ const getUserById = async (req, res) => {
  * if an invalid request is send, will return a 400 error
  */
 const createUser = async (req, res) => {
-	const { username, password, password2} = req.body
-	if (!username || !password || !password2) {
+	const { username, password, password2, email} = req.body
+	console.log(req.body, 'empty')
+	if (!username || !password || !password2 || !email) {
 		return res.status(400).end()
 	}
 	
@@ -70,14 +94,22 @@ const createUser = async (req, res) => {
 	}
 	const response = await User.create({
 		username,
-		password
+		password,
+		email
 	})
-	res.status(201).json(response)
+
+	if (!response) {
+		return res.status(400).end()
+	}
+
+	return res.status(201).redirect('/signin')
+	// res.status(201).json(response)
 } 
 
 module.exports = {
 	signupForm,
 	signinForm,
+	signinUser,
 	getAllUsers,
 	getUserById,
 	createUser,
