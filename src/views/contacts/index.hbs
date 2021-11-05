@@ -1,14 +1,36 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 mt-4">
-			<form action="/contacts" class="card" method="post">
-				<h2 class="card-title text-center">Add a contact</h2>
-				<div class="card-body d-flex flex-column">
-					<input type="text" class="form-control mb-4" name="contact_name" placeholder="Name" />
-					<input type="text" class="form-control mb-4" name="phone_number" placeholder="Phone Number" />
-					<button type="submit" class="btn btn-primary mb-4">Add</button>
-				</div>
-			</form>
+		<div class="col-md-4">
+			<div class="mt-4">
+				<form action="/contacts" class="card" method="post">
+					<h2 class="card-title text-center">Add a contact</h2>
+					<div class="card-body d-flex flex-column">
+						<input type="text" class="form-control mb-4" name="contact_name" placeholder="Name" />
+						<input type="text" class="form-control mb-4" name="phone_number" placeholder="Phone Number" />
+						<button type="submit" class="btn btn-primary mb-4">Add</button>
+					</div>
+				</form>
+			</div>
 		</div>
+		{{#if contacts}}
+		<table class="col table table-primary table-striped table-hover mt-4">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each contacts}}
+				<tr>
+					<th scope="row">{{this.id}}</th>
+					<td>
+						{{this.contact_name}}
+					</td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+		{{/if}}
 	</div>
 </div>

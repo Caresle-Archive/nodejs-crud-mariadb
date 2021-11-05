@@ -1,10 +1,17 @@
 const Contact = require('../models/contact')
 
-const getContacts = (req, res) => {
-	if (req.cookies.idUsername === undefined) {
-		return res.status(401).redirect('/signin')
+const getContacts = async (req, res) => {
+	const contacts = await Contact.findAll()
+	
+	if (!contacts) {
+		res.render('contacts/')
 	}
-	res.render('contacts/')
+
+	const data = []
+	for (const contact of contacts) {
+		data.push(contact.toJSON())
+	}
+	res.render('contacts/', {contacts: data})
 }
 
 const createContact = async (req, res) => {
@@ -15,9 +22,9 @@ const createContact = async (req, res) => {
 	})
 
 	if (!response) {
-		res.status(400).end()
+		res.status(400).redirect('/contacts')
 	}
-	res.status(201).end()
+	res.status(201).redirect('/contacts')
 }
 
 module.exports = {

@@ -1,6 +1,5 @@
 const User = require('../models/user')
 
-
 /**
  * Renders the sign up form 
  * @param {*} req 
