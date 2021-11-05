@@ -27,7 +27,19 @@ const createContact = async (req, res) => {
 	res.status(201).redirect('/contacts')
 }
 
+const deleteContact = async (req, res) => {
+	const { id } = req.params
+	const response = await Contact.destroy({
+		where: { id }
+	})
+	if (!response) {
+		res.status(404).redirect('/contacts')
+	}
+	res.status(200).redirect('/contacts')
+}
+
 module.exports = {
 	getContacts,
-	createContact
+	createContact,
+	deleteContact
 }

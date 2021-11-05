@@ -18,6 +18,8 @@
 				<tr>
 					<th scope="col">#</th>
 					<th scope="col">Name</th>
+					<th scope="col">Phone number</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,6 +28,21 @@
 					<th scope="row">{{this.id}}</th>
 					<td>
 						{{this.contact_name}}
+					</td>
+					<td>
+						{{this.phone_number}}
+					</td>
+					<td class="d-flex">
+						<form action="contacts/{{this.id}}?_method=PUT" method="post">
+							<button type="submit" class="btn btn-secondary">
+								Edit
+							</button>
+						</form>
+						<form class="ms-4" action="contacts/{{this.id}}?_method=DELETE" method="post">
+							<button type="submit" class="btn btn-danger">
+								Delete
+							</button>
+						</form>
 					</td>
 				</tr>
 			{{/each}}

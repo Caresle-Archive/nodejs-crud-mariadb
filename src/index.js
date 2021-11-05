@@ -5,7 +5,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-
+const methodOverride = require('method-override')
 const PORT = process.env.PORT || 3001
 
 // db
@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
+app.use(methodOverride('_method'))
 
 // View engine
 app.set('views', path.join(__dirname, 'views'))
