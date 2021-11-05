@@ -30,7 +30,7 @@ const signinUser = async (req, res) => {
 	const response = await User.findOne({where: {username}})
 
 	if (!response) {
-		return res.status(400).end()
+		return res.status(400).redirect('/signin')
 	}
 
 	const data = response.toJSON()
