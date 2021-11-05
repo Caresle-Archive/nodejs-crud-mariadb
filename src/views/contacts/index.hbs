@@ -2,14 +2,27 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div class="mt-4">
+				{{#if edit}}
+				<form action="/contacts/{{edit.id}}?_method=PUT" class="card" method="post">
+					<h2 class="card-title text-center">Edit a contact</h2>
+					<div class="card-body d-flex flex-column">
+						<input type="text" class="form-control mb-4" name="contact_name" placeholder="Name" 
+						value="{{edit.contact_name}}" />
+						<input type="text" class="form-control mb-4" name="phone_number" placeholder="Phone Number" 
+						value="{{edit.phone_number}}" maxlength="10"/>
+						<button type="submit" class="btn btn-primary mb-4">Edit</button>
+					</div>
+				</form>
+				{{else}}
 				<form action="/contacts" class="card" method="post">
 					<h2 class="card-title text-center">Add a contact</h2>
 					<div class="card-body d-flex flex-column">
 						<input type="text" class="form-control mb-4" name="contact_name" placeholder="Name" />
-						<input type="text" class="form-control mb-4" name="phone_number" placeholder="Phone Number" />
+						<input type="text" class="form-control mb-4" name="phone_number" placeholder="Phone Number" maxlength="10"/>
 						<button type="submit" class="btn btn-primary mb-4">Add</button>
 					</div>
 				</form>
+				{{/if}}
 			</div>
 		</div>
 		{{#if contacts}}
@@ -33,7 +46,7 @@
 						{{this.phone_number}}
 					</td>
 					<td class="d-flex">
-						<form action="contacts/{{this.id}}?_method=PUT" method="post">
+						<form action="/contacts/{{this.id}}" method="get">
 							<button type="submit" class="btn btn-secondary">
 								Edit
 							</button>
